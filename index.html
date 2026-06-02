@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نوشي - منشور أفضل المنتجات مبيعاً</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+<!-- ✅ مسار html2canvas من مجلد Noshi (نفس المستخدم في index.html) -->
+<script src="html2canvas.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #2c1810 0%, #3d2a1f 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* الحاوية الرئيسية */
+.main-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* ===== لوحة التحكم (يمين) ===== */
+.control-panel {
+    flex: 1.2;
+    min-width: 320px;
+    background: #fff9f0;
+    border-radius: 35px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.control-panel h2 {
+    color: #5a3418;
+    font-size: 28px;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #d4a53a;
+    display: inline-block;
+}
+
+.control-panel h3 {
+    color: #b8862d;
+    font-size: 20px;
+    margin: 20px 0 10px 0;
+}
+
+/* اختيار الشهر */
+.month-selector {
+    background: #fef5e8;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+.month-selector label {
+    display: block;
+    font-weight: 800;
+    color: #5a3418;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.month-selector select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    border: 2px solid #e7c46f;
+    background: white;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5a3418;
+    cursor: pointer;
+}
+
+/* المنتجات المتاحة */
+.products-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 15px 0;
+    border-radius: 20px;
+    background: #fef5e8;
+    padding: 10px;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid #f0e0c8;
+    transition: all 0.2s;
+}
+
+.product-item:hover {
+    border-color: #d4a53a;
+    box-shadow: 0 3px 10px rgba(212,165,58,0.1);
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-name {
+    font-weight: 800;
+    color: #5a3418;
+    font-size: 16px;
+}
+
+.product-price {
+    color: #b8862d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.add-btn {
+    background: #d4a53a;
+    border: none;
+    border-radius: 30px;
+    padding: 6px 16px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.add-btn:hover {
+    background: #b8862d;
+    transform: scale(1.02);
+}
+
+.add-btn.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* السلة (المنتجات المختارة) */
+.selected-products {
+    background: #fef5e8;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.selected-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    margin: 8px 0;
+    padding: 10px 15px;
+    border-radius: 12px;
+    border-right: 5px solid #d4a53a;
+}
+
+.rank-badge {
+    width: 35px;
+    height: 35px;
+    background: #d4a53a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.selected-name {
+    flex: 1;
+    margin: 0 15px;
+    font-weight: 800;
+    color: #5a3418;
+}
+
+.remove-selected {
+    background: #e74c3c;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* الأزرار الرئيسية */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    flex: 1;
+    border: none;
+    border-radius: 50px;
+    padding: 14px;
+    font-weight: 900;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-generate {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+}
+
+.btn-clear {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== معاينة البوستر (يسار) ===== */
+.preview-area {
+    flex: 1.5;
+    min-width: 400px;
+    background: #f0e6d9;
+    border-radius: 35px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preview-area h3 {
+    color: #5a3418;
+    margin-bottom: 15px;
+}
+
+/* البوستر نفسه - نفس تصميم top-products-whatsapp.html */
+.poster {
+    width: 500px;
+    background: linear-gradient(180deg, #ffffff, #fffdfa);
+    border-radius: 40px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+    transition: all 0.2s;
+}
+
+.poster::before {
+    content: "✦";
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-size: 60px;
+    color: #f6e3b3;
+    opacity: 0.5;
+}
+
+.poster::after {
+    content: "✦";
+    position: absolute;
+    bottom: 25px;
+    left: 30px;
+    font-size: 60px;
+    color: #f6e3b3;
+    opacity: 0.4;
+}
+
+/* Header البوستر */
+.poster-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.poster-logo {
+    width: 200px;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+.poster-title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #5a3418;
+    line-height: 1.1;
+}
+
+.poster-month {
+    font-size: 24px;
+    font-weight: 800;
+    color: #b8862d;
+}
+
+/* المركز الأول */
+.winner-card {
+    width: 90%;
+    margin: 20px auto 30px;
+    background: linear-gradient(180deg, #fff9e8, #ffffff);
+    border: 3px solid #e7c46f;
+    border-radius: 30px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.winner-rank {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #d4a53a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.winner-crown {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.winner-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 4px solid white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.winner-name {
+    margin-top: 12px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #5a3418;
+}
+
+.winner-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #b8862d;
+}
+
+/* باقي المنتجات */
+.products-grid-poster {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.product-card {
+    background: linear-gradient(180deg, #ffffff, #fffaf4);
+    border: 2px solid #f3e4cb;
+    border-radius: 25px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+}
+
+.product-rank {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #d4a53a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.product-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 8px;
+}
+
+.product-card .name {
+    font-size: 18px;
+    font-weight: 900;
+    color: #5a3418;
+}
+
+.product-card .price {
+    font-size: 16px;
+    font-weight: 800;
+    color: #b8862d;
+}
+
+/* فوتر البوستر */
+.poster-footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: #5a3418;
+}
+
+.poster-footer span {
+    color: #d4a53a;
+}
+
+/* رسالة الخطأ */
+.error-msg {
+    background: #e74c3c;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
+/* Toast */
+.toast-msg {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #27ae60;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.toast-msg.show {
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<div class="main-container">
+    
+    <!-- لوحة التحكم -->
+    <div class="control-panel">
+        <h2>🏆 أفضل المنتجات مبيعاً</h2>
+        
+        <!-- اختيار الشهر -->
+        <div class="month-selector">
+            <label>📅 اختر الشهر:</label>
+            <select id="monthSelect">
+                <option value="يناير">يناير 2026</option>
+                <option value="فبراير">فبراير 2026</option>
+                <option value="مارس">مارس 2026</option>
+                <option value="أبريل">أبريل 2026</option>
+                <option value="مايو" selected>مايو 2026</option>
+                <option value="يونيو">يونيو 2026</option>
+                <option value="يوليو">يوليو 2026</option>
+                <option value="أغسطس">أغسطس 2026</option>
+                <option value="سبتمبر">سبتمبر 2026</option>
+                <option value="أكتوبر">أكتوبر 2026</option>
+                <option value="نوفمبر">نوفمبر 2026</option>
+                <option value="ديسمبر">ديسمبر 2026</option>
+            </select>
+        </div>
+        
+        <h3>🍰 المنتجات المتاحة</h3>
+        <div class="products-list" id="productsList"></div>
+        
+        <h3>🛒 المنتجات المختارة (1-5)</h3>
+        <div class="selected-products" id="selectedList">
+            <p style="color:#aaa; text-align:center;">لم يتم اختيار أي منتج</p>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-generate" id="generateBtn">📸 توليد الصورة</button>
+            <button class="btn btn-clear" id="clearCartBtn">🗑️ مسح الكل</button>
+        </div>
+        <div class="error-msg" id="errorMsg">⚠️ يجب اختيار 5 منتجات بالضبط</div>
+    </div>
+    
+    <!-- منطقة المعاينة والتصدير -->
+    <div class="preview-area">
+        <h3>📱 معاينة المنشور</h3>
+        <div id="posterContainer">
+            <!-- البوستر سيتم عرضه هنا ديناميكياً -->
+        </div>
+        <p style="color:#888; font-size:12px; margin-top:10px;">⬅️ اضغط "توليد الصورة" لحفظ المنشور كصورة PNG</p>
+    </div>
+</div>
+
+<div class="toast-msg" id="toastMsg">✅ تم حفظ الصورة</div>
+
+<script>
+// =====================================================
+// البيانات - نفس الموجودة في طلبك
+// =====================================================
+const cakes = [
+    {name: "كيكة ليمون", price: 32, img:"lemon.png"},
+    {name: "كيكة سينابون", price: 35, img:"cinnamon1.png"},
+    {name: "كيكة برتقال", price: 36, img:"orange.png"},
+    {name: "كيكة رمل", price: 45, img:"sand.jpg"},
+    {name: "كيكة كوكيز", price: 60, img:"cookies.png"},
+    {name: "كيكة ماربل", price: 50, img:"marble.png"},
+    {name: "كيكة دايجستف", price: 50, img:"digestive.png"},
+    {name: "كيك دايجستف ميني", price: 60, img:"digestive.png"},		
+    {name: "كيكة تمر", price: 45, img:"dates.png"},
+    {name: "قرص عقيلي", price: 39, img:"aqeeli.png"},
+    {name: "كيكة شوكليت", price: 50, img:"choco.jpg"},
+    {name: "ميني كيك ليمون", price: 60, img:"minilemon.png"},
+    {name: "كيكة الكيري", price: 45, img:"kiri.png"}
+];
+
+const sweets = [
+    {name: "خلية قرفة", price: 26, img:"honey1.png"},
+    {name: "خلية سمسم", price: 26, img:"honey2.png"},
+    {name: "خلية سميد", price: 26, img:"honey3.png"},
+    {name: "تاوة نوشي", price: 38, img:"tawa.png"},
+    {name: "تاوة نوشي ميني", price: 45, img:"tawamini.png"},
+    {name: "سينابون", price: 60, img:"cinnabon.png"},
+    {name: "كرات الشعيرية", price: 65, img:"shariya.png"},
+    {name: "فطيرة حلزونية", price: 40, img:"spiral.png"},
+    {name: "تارت تفاح", price: 60, img:"tart.png"},
+    {name: "تارت تشيز التمر", price: 60, img:"tartdate.png"},
+    {name: "بوب كيك ليمون", price: 50, img:"popcakelemon.png"},
+    {name: "بوب كيك شوكليت", price: 50, img:"popcakechoco.png"},
+    {name: "بسبوسة", price: 60, img:"basbousa.png"},
+    {name: "تشيز القشد", price: 55, img:"chesedate.png"},
+    {name: "فطيرة المربى", price: 50, img:"jam.png"},
+    {name: "وردات الشوكولاتة", price: 60, img:"rose.png"},
+    {name: "تارت البيكان", price: 65, img:"bekan.png"}
+];
+
+// دمج الكل معاً
+const allProducts = [...cakes, ...sweets];
+
+// المتغيرات
+let selectedProducts = []; // array من المنتجات المختارة (حد أقصى 5)
+
+// =====================================================
+// عرض المنتجات المتاحة
+// =====================================================
+function renderAvailableProducts() {
+    const container = document.getElementById('productsList');
+    container.innerHTML = '';
+    
+    allProducts.forEach(product => {
+        const isSelected = selectedProducts.some(p => p.name === product.name);
+        const isFull = selectedProducts.length >= 5;
+        
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.innerHTML = `
+            <div class="product-info">
+                <div class="product-name">${product.name}</div>
+                <div class="product-price">${product.price} ريال</div>
+            </div>
+            <button class="add-btn" data-name="${product.name}" ${isSelected || isFull ? 'disabled' : ''}>
+                ${isSelected ? '✓ تمت الإضافة' : '+ إضافة'}
+            </button>
+        `;
+        
+        const btn = div.querySelector('.add-btn');
+        if (!isSelected && !isFull) {
+            btn.addEventListener('click', () => addToSelected(product));
+        }
+        
+        container.appendChild(div);
+    });
+}
+
+// =====================================================
+// إضافة منتج إلى القائمة المختارة
+// =====================================================
+function addToSelected(product) {
+    if (selectedProducts.length >= 5) {
+        showError('لا يمكن إضافة أكثر من 5 منتجات');
+        return;
+    }
+    
+    if (selectedProducts.some(p => p.name === product.name)) {
+        showError('المنتج مضاف بالفعل');
+        return;
+    }
+    
+    selectedProducts.push({...product});
+    renderSelectedProducts();
+    renderAvailableProducts();
+    updatePosterPreview();
+    hideError();
+}
+
+// =====================================================
+// إزالة منتج من القائمة المختارة
+// =====================================================
+function removeFromSelected(index) {
+    selectedProducts.splice(index, 1);
+    renderSelectedProducts();
+    renderAvailableProducts();
+    updatePosterPreview();
+    hideError();
+}
+
+// =====================================================
+// عرض المنتجات المختارة (مرتبة)
+// =====================================================
+function renderSelectedProducts() {
+    const container = document.getElementById('selectedList');
+    
+    if (selectedProducts.length === 0) {
+        container.innerHTML = '<p style="color:#aaa; text-align:center;">لم يتم اختيار أي منتج</p>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    selectedProducts.forEach((product, idx) => {
+        const rank = idx + 1;
+        const div = document.createElement('div');
+        div.className = 'selected-item';
+        div.innerHTML = `
+            <div class="rank-badge">${rank}</div>
+            <div class="selected-name">${product.name} (${product.price} ريال)</div>
+            <button class="remove-selected" data-index="${idx}">✖ حذف</button>
+        `;
+        
+        div.querySelector('.remove-selected').addEventListener('click', () => removeFromSelected(idx));
+        container.appendChild(div);
+    });
+}
+
+// =====================================================
+// تحديث معاينة البوستر
+// =====================================================
+function updatePosterPreview() {
+    const container = document.getElementById('posterContainer');
+    const month = document.getElementById('monthSelect').value;
+    
+    if (selectedProducts.length !== 5) {
+        container.innerHTML = `
+            <div style="width:500px; background:#f0e6d9; border-radius:40px; padding:80px 20px; text-align:center; color:#b8862d;">
+                ⚠️ يرجى اختيار 5 منتجات<br>
+                <span style="font-size:14px;">(المنتج رقم 1 سيظهر في المنتصف كأفضل منتج)</span>
+            </div>
+        `;
+        return;
+    }
+    
+    // بناء البوستر حسب التصميم المطلوب
+    const winner = selectedProducts[0];
+    const others = selectedProducts.slice(1, 5);
+    
+    const posterHTML = `
+        <div class="poster" id="posterToCapture">
+            <div class="poster-header">
+                <img src="images/Noshi.png" class="poster-logo" alt="نوشي">
+                <div class="poster-title">المنتجات الأكثر مبيعاً</div>
+                <div class="poster-month">${month}</div>
+            </div>
+            
+            <div class="winner-card">
+                <div class="winner-rank">1</div>
+                <div class="winner-crown">👑</div>
+                <img src="${winner.img}" class="winner-image" alt="${winner.name}" onerror="this.src='placeholder.png'">
+                <div class="winner-name">${winner.name}</div>
+                <div class="winner-price">${winner.price} ريال</div>
+            </div>
+            
+            <div class="products-grid-poster">
+                ${others.map((product, idx) => `
+                    <div class="product-card">
+                        <div class="product-rank">${idx + 2}</div>
+                        <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.png'">
+                        <div class="name">${product.name}</div>
+                        <div class="price">${product.price} ريال</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="poster-footer">
+                <span>نوشي</span> .. كل شيء لذيذ 🤎
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = posterHTML;
+}
+
+// =====================================================
+// توليد الصورة (نفس طريقة index.html)
+// =====================================================
+async function generateImage() {
+    if (selectedProducts.length !== 5) {
+        showError('يجب اختيار 5 منتجات بالضبط');
+        return;
+    }
+    
+    // التأكد من وجود البوستر في DOM
+    updatePosterPreview();
+    
+    // انتظار قليل لضمان تحميل الصور
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    const posterElement = document.getElementById('posterToCapture');
+    if (!posterElement) {
+        showError('حدث خطأ في إنشاء المنشور');
+        return;
+    }
+    
+    // ✅ نفس طريقة التصوير المستخدمة في index.html
+    html2canvas(posterElement, {
+        scale: 2.5,
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+    }).then(canvas => {
+        // تحويل canvas إلى blob
+        canvas.toBlob(blob => {
+            // إنشاء رابط تحميل
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = `نوشي_افضل_المنتجات_${document.getElementById('monthSelect').value}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            // إظهار رسالة نجاح
+            showToast('✅ تم حفظ الصورة بنجاح');
+        }, 'image/png');
+    }).catch(error => {
+        console.error('خطأ في التصوير:', error);
+        showError('حدث خطأ أثناء توليد الصورة');
+    });
+}
+
+// =====================================================
+// مسح جميع المنتجات المختارة
+// =====================================================
+function clearAll() {
+    selectedProducts = [];
+    renderSelectedProducts();
+    renderAvailableProducts();
+    updatePosterPreview();
+    hideError();
+    showToast('🗑️ تم مسح جميع المنتجات');
+}
+
+// =====================================================
+// دوال مساعدة
+// =====================================================
+function showError(msg) {
+    const errorEl = document.getElementById('errorMsg');
+    errorEl.textContent = `⚠️ ${msg}`;
+    errorEl.style.display = 'block';
+    setTimeout(() => {
+        errorEl.style.display = 'none';
+    }, 3000);
+}
+
+function hideError() {
+    const errorEl = document.getElementById('errorMsg');
+    errorEl.style.display = 'none';
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toastMsg');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
+}
+
+// =====================================================
+// مستمعي الأحداث
+// =====================================================
+document.getElementById('generateBtn').addEventListener('click', generateImage);
+document.getElementById('clearCartBtn').addEventListener('click', clearAll);
+document.getElementById('monthSelect').addEventListener('change', () => updatePosterPreview());
+
+// =====================================================
+// التهيئة
+// =====================================================
+renderAvailableProducts();
+renderSelectedProducts();
+updatePosterPreview();
+
+</script>
+
+</body>
+</html>
