@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>نوشي | أفضل المنتجات مبيعاً - منشور 9:16</title>
+<title>نوشي | أفضل المنتجات مبيعاً - صورة مربعة</title>
 
 <!-- Tajawal Font -->
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
 
-<!-- html2canvas for image generation -->
+<!-- html2canvas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
@@ -21,27 +21,27 @@
 body {
     background: linear-gradient(135deg, #2c1810 0%, #3d2a1f 100%);
     min-height: 100vh;
-    padding: 16px;
+    padding: 20px;
     font-family: 'Tajawal', sans-serif;
 }
 
-/* الحاوية الرئيسية - مرنة للشاشات المختلفة */
+/* الحاوية الرئيسية */
 .main-container {
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     align-items: flex-start;
 }
 
-/* ===== لوحة التحكم (يمين) ===== */
+/* ===== لوحة التحكم ===== */
 .control-panel {
     flex: 1.2;
     min-width: 300px;
     background: #fff9f0;
     border-radius: 40px;
-    padding: 24px;
+    padding: 25px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     position: sticky;
     top: 20px;
@@ -243,13 +243,13 @@ body {
     font-weight: bold;
 }
 
-/* ===== منطقة المعاينة - عكس اتجاه التصميم (يسار) ===== */
+/* ===== منطقة المعاينة ===== */
 .preview-area {
     flex: 1.5;
     min-width: 0;
     background: #f0e6d9;
     border-radius: 40px;
-    padding: 24px 16px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -258,148 +258,147 @@ body {
 
 .preview-area h3 {
     color: #5a3418;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-size: 22px;
 }
 
-/* ----- تصميم البوستر الجديد مقاس 9:16 ثابت ----- */
-.poster-wrapper {
+/* البوستر المربع - 1:1 perfect square */
+.square-poster-wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
     border-radius: 32px;
-    background: #e3d5c0;
-    padding: 12px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    background: #dccfbc;
+    padding: 15px;
 }
 
-/* النسبة الذهبية 9:16 - العرض 405px => الارتفاع 720px (9:16 = 0.5625) */
-/* لضمان وضوح على iPhone وجميع الأجهزة نستخدم عرض 405px مثالي للمعاينة + حفظ */
-.poster-916 {
-    width: 360px;
-    height: 640px;
+/* مقاس مربع ثابت 500x500px - مثالي للانستقرام وفيسبوك وجميع المنصات */
+.poster-square {
+    width: 500px;
+    height: 500px;
     background: linear-gradient(145deg, #ffffff 0%, #fffbf4 100%);
     border-radius: 48px;
     position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 20px 18px 24px 18px;
-    box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+    padding: 22px 20px 20px 20px;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.25);
     direction: rtl;
     font-family: 'Tajawal', sans-serif;
-    scrollbar-width: thin;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-/* تزيين الحواف بنجوم صغيرة */
-.poster-916::before {
+/* زخرفة المربع */
+.poster-square::before {
     content: "✦";
     position: absolute;
     top: 18px;
     right: 22px;
-    font-size: 48px;
+    font-size: 52px;
     color: #f6e3b3;
     opacity: 0.55;
     pointer-events: none;
 }
 
-.poster-916::after {
+.poster-square::after {
     content: "✦";
     position: absolute;
     bottom: 18px;
     left: 22px;
-    font-size: 48px;
+    font-size: 52px;
     color: #f6e3b3;
     opacity: 0.5;
     pointer-events: none;
 }
 
-/* الهيدر */
+/* رأس البوستر */
 .poster-header {
     text-align: center;
-    margin-bottom: 12px;
-    position: relative;
-    z-index: 2;
+    margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .poster-logo {
-    width: 150px;
-    max-width: 80%;
+    width: 130px;
+    max-width: 70%;
     display: block;
-    margin: 0 auto 6px;
+    margin: 0 auto 4px;
 }
 
 .poster-title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 900;
     color: #5a3418;
     line-height: 1.2;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
 }
 
 .poster-month {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     color: #b8862d;
     background: #fff1df;
     display: inline-block;
-    padding: 2px 16px;
+    padding: 2px 18px;
     border-radius: 40px;
-    margin-top: 6px;
+    margin-top: 5px;
 }
 
-/* بطاقة المركز الأول (winner) */
+/* بطاقة المركز الأول (أفضل منتج) */
 .winner-card {
-    width: 92%;
-    margin: 12px auto 18px auto;
+    width: 94%;
+    margin: 6px auto 12px auto;
     background: linear-gradient(135deg, #fff7ea, #ffffff);
     border: 3px solid #e7c46f;
     border-radius: 32px;
-    padding: 14px 12px;
+    padding: 10px 10px;
     text-align: center;
     position: relative;
-    box-shadow: 0 12px 22px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    flex-shrink: 0;
 }
 
 .winner-rank {
     position: absolute;
-    top: 10px;
-    right: 14px;
-    width: 34px;
-    height: 34px;
+    top: 8px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: #d4a53a;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 900;
 }
 
 .winner-crown {
-    font-size: 34px;
-    margin-bottom: 6px;
+    font-size: 30px;
+    margin-bottom: 4px;
 }
 
 .winner-image {
-    width: 120px;
-    height: 120px;
+    width: 95px;
+    height: 95px;
     object-fit: cover;
     border-radius: 28px;
     border: 3px solid white;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
     background-color: #f9efdf;
 }
 
 .winner-name {
-    margin-top: 10px;
-    font-size: 22px;
+    margin-top: 8px;
+    font-size: 20px;
     font-weight: 900;
     color: #5a3418;
 }
 
 .winner-price {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
     color: #b8862d;
     background: #fef0df;
@@ -409,93 +408,95 @@ body {
 }
 
 /* شبكة المنتجات 2x2 للمراكز 2-5 */
-.products-grid-poster {
+.products-grid-square {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin: 12px 4px 12px 4px;
+    gap: 12px;
+    margin: 8px 6px 6px 6px;
+    flex: 1;
+    align-items: start;
 }
 
-.product-card {
+.product-card-square {
     background: #ffffff;
     border: 2px solid #f3e4cb;
     border-radius: 28px;
-    padding: 10px 6px;
+    padding: 8px 5px;
     text-align: center;
     position: relative;
     transition: all 0.1s;
-    backdrop-filter: blur(0px);
 }
 
-.product-rank {
+.product-rank-square {
     position: absolute;
-    top: 6px;
+    top: 5px;
     right: 8px;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: #d4a53a;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 900;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.product-card img {
-    width: 100px;
-    height: 100px;
+.product-card-square img {
+    width: 90px;
+    height: 90px;
     object-fit: cover;
-    border-radius: 22px;
-    margin-bottom: 8px;
+    border-radius: 24px;
+    margin-bottom: 6px;
     background: #faf1e2;
 }
 
-.product-card .name {
-    font-size: 16px;
+.product-card-square .name {
+    font-size: 15px;
     font-weight: 800;
     color: #5a3418;
     line-height: 1.3;
     padding: 0 4px;
 }
 
-.product-card .price {
-    font-size: 14px;
+.product-card-square .price {
+    font-size: 13px;
     font-weight: 800;
     color: #b8862d;
-    margin-top: 4px;
+    margin-top: 3px;
 }
 
 /* الفوتر */
-.poster-footer {
-    margin-top: 14px;
+.poster-footer-square {
+    margin-top: 6px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
     color: #5a3418;
     background: #fff5ea;
-    padding: 6px;
+    padding: 5px;
     border-radius: 60px;
-    width: 90%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
+    flex-shrink: 0;
 }
 
-.poster-footer span {
+.poster-footer-square span {
     color: #d4a53a;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-/* تنسيق رسائل مساعدة */
 .helper-note {
     color: #776b5d;
-    font-size: 12px;
-    margin-top: 12px;
+    font-size: 13px;
+    margin-top: 15px;
     background: #e9ddd0;
-    padding: 6px 14px;
-    border-radius: 40px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    text-align: center;
 }
 
 .toast-msg {
@@ -520,38 +521,38 @@ body {
     opacity: 1;
 }
 
-/* تحسين التمرير داخل البوستر إذا كان المحتوى طويل قليلاً */
-.poster-916::-webkit-scrollbar {
-    width: 4px;
-}
-.poster-916::-webkit-scrollbar-track {
-    background: #f1e6d8;
-    border-radius: 10px;
-}
-.poster-916::-webkit-scrollbar-thumb {
-    background: #d4a53a;
-    border-radius: 10px;
-}
-
+/* تحسين الاستجابة للشاشات الصغيرة */
 @media (max-width: 780px) {
-    .poster-916 {
-        width: 330px;
-        height: 586px;
-        padding: 18px 14px;
+    .poster-square {
+        width: 380px;
+        height: 380px;
+        padding: 16px 14px;
     }
     .winner-image {
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
     }
-    .product-card img {
-        width: 85px;
-        height: 85px;
+    .product-card-square img {
+        width: 70px;
+        height: 70px;
     }
     .poster-title {
-        font-size: 24px;
+        font-size: 20px;
     }
     .winner-name {
-        font-size: 19px;
+        font-size: 16px;
+    }
+    .product-card-square .name {
+        font-size: 12px;
+    }
+    .poster-logo {
+        width: 100px;
+    }
+    .winner-card {
+        padding: 6px;
+    }
+    .winner-crown {
+        font-size: 24px;
     }
 }
 </style>
@@ -567,12 +568,17 @@ body {
         <div class="month-selector">
             <label>📅 اختر الشهر:</label>
             <select id="monthSelect">
-                <option value="يناير">يناير 2026</option><option value="فبراير">فبراير 2026</option>
-                <option value="مارس">مارس 2026</option><option value="أبريل">أبريل 2026</option>
+                <option value="يناير">يناير 2026</option>
+                <option value="فبراير">فبراير 2026</option>
+                <option value="مارس">مارس 2026</option>
+                <option value="أبريل">أبريل 2026</option>
                 <option value="مايو" selected>مايو 2026</option>
-                <option value="يونيو">يونيو 2026</option><option value="يوليو">يوليو 2026</option>
-                <option value="أغسطس">أغسطس 2026</option><option value="سبتمبر">سبتمبر 2026</option>
-                <option value="أكتوبر">أكتوبر 2026</option><option value="نوفمبر">نوفمبر 2026</option>
+                <option value="يونيو">يونيو 2026</option>
+                <option value="يوليو">يوليو 2026</option>
+                <option value="أغسطس">أغسطس 2026</option>
+                <option value="سبتمبر">سبتمبر 2026</option>
+                <option value="أكتوبر">أكتوبر 2026</option>
+                <option value="نوفمبر">نوفمبر 2026</option>
                 <option value="ديسمبر">ديسمبر 2026</option>
             </select>
         </div>
@@ -586,25 +592,25 @@ body {
         </div>
         
         <div class="action-buttons">
-            <button class="btn btn-generate" id="generateBtn">📸 حفظ الصورة (9:16)</button>
+            <button class="btn btn-generate" id="generateBtn">📸 حفظ الصورة (مربعة)</button>
             <button class="btn btn-clear" id="clearCartBtn">🗑️ مسح الكل</button>
         </div>
         <div class="error-msg" id="errorMsg">⚠️ يجب اختيار 5 منتجات بالضبط</div>
     </div>
     
-    <!-- منطقة المعاينة -->
+    <!-- منطقة معاينة الصورة المربعة -->
     <div class="preview-area">
-        <h3>📱 معاينة المنشور (نسبة 9:16)</h3>
-        <div class="poster-wrapper" id="posterWrapper">
+        <h3>🖼️ معاينة المنشور (شكل مربع 1:1)</h3>
+        <div class="square-poster-wrapper">
             <div id="posterContainer">
-                <!-- البوستر سيتم حقنه ديناميكياً -->
+                <!-- البوستر المربع سيتم عرضه هنا -->
             </div>
         </div>
-        <p class="helper-note">⬅️ عند الضغط على "حفظ الصورة" سيتم إنشاء PNG بدقة عالية بنفس التصميم.</p>
+        <p class="helper-note">⬅️ اضغط "حفظ الصورة" لتحميل صورة مربعة مثالية لوسائل التواصل الاجتماعي</p>
     </div>
 </div>
 
-<div class="toast-msg" id="toastMsg">✅ تم حفظ الصورة بنجاح</div>
+<div class="toast-msg" id="toastMsg">✅ تم حفظ الصورة المربعة</div>
 
 <script>
 // ===================== البيانات (كيك + حلويات) =====================
@@ -645,7 +651,7 @@ const sweets = [
 ];
 
 const allProducts = [...cakes, ...sweets];
-let selectedProducts = []; // max 5
+let selectedProducts = []; // الحد الأقصى 5
 
 // ========== عرض المنتجات المتاحة ==========
 function renderAvailableProducts() {
@@ -719,27 +725,27 @@ function renderSelectedProducts() {
     });
 }
 
-// ========== بناء البوستر بشكل ديناميكي مع المقاس 9:16 (عرض ثابت بالـ CSS) ==========
-function buildPosterHTML() {
+// بناء البوستر المربع بشكل مثالي 1:1
+function buildSquarePosterHTML() {
     const month = document.getElementById('monthSelect').value;
     if (selectedProducts.length !== 5) {
         return `
-            <div class="poster-916" style="display:flex; align-items:center; justify-content:center; text-align:center; background:#fcf5ea;">
+            <div class="poster-square" style="display:flex; align-items:center; justify-content:center; text-align:center; background:#fcf5ea;">
                 <div style="color:#b8862d; font-weight:bold; padding:20px;">
-                    ⚠️ يرجى اختيار 5 منتجات<br>
-                    <span style="font-size:13px;">(المرتبة الأولى ستكون في المنتصف)</span>
+                    ⚠️ اختر 5 منتجات<br>
+                    <span style="font-size:13px;">المرتبة الأولى ستكون في المنتصف</span>
                 </div>
             </div>
         `;
     }
     
     const winner = selectedProducts[0];
-    const others = selectedProducts.slice(1, 5); // الباقي 4 منتجات
+    const others = selectedProducts.slice(1, 5);
     
     return `
-        <div class="poster-916" id="posterToCapture">
+        <div class="poster-square" id="posterToCapture">
             <div class="poster-header">
-                <img src="Noshi.png" class="poster-logo" alt="نوشي" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2050%22%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20text-anchor%3D%22middle%22%20fill%3D%22%23b8862d%22%3ENoshi%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                <img src="Noshi.png" class="poster-logo" alt="نوشي" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2040%22%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20text-anchor%3D%22middle%22%20fill%3D%22%23b8862d%22%20font-size%3D%2220%22%3Eنوشي%3C%2Ftext%3E%3C%2Fsvg%3E'">
                 <div class="poster-title">المنتجات الأكثر مبيعاً</div>
                 <div class="poster-month">${month}</div>
             </div>
@@ -747,23 +753,23 @@ function buildPosterHTML() {
             <div class="winner-card">
                 <div class="winner-rank">1</div>
                 <div class="winner-crown">👑</div>
-                <img src="${winner.img}" class="winner-image" alt="${winner.name}" onerror="this.src='placeholder.png'">
+                <img src="${winner.img}" class="winner-image" alt="${winner.name}" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%22%20height%3D%22100%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3e4cb%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20text-anchor%3D%22middle%22%20fill%3D%22%23b8862d%22%3E📷%3C%2Ftext%3E%3C%2Fsvg%3E'">
                 <div class="winner-name">${winner.name}</div>
                 <div class="winner-price">${winner.price} ريال</div>
             </div>
             
-            <div class="products-grid-poster">
+            <div class="products-grid-square">
                 ${others.map((product, idx) => `
-                    <div class="product-card">
-                        <div class="product-rank">${idx + 2}</div>
-                        <img src="${product.img}" alt="${product.name}" onerror="this.src='placeholder.png'">
+                    <div class="product-card-square">
+                        <div class="product-rank-square">${idx + 2}</div>
+                        <img src="${product.img}" alt="${product.name}" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3e4cb%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20text-anchor%3D%22middle%22%20fill%3D%22%23b8862d%22%3E🍰%3C%2Ftext%3E%3C%2Fsvg%3E'">
                         <div class="name">${product.name}</div>
                         <div class="price">${product.price} ريال</div>
                     </div>
                 `).join('')}
             </div>
             
-            <div class="poster-footer">
+            <div class="poster-footer-square">
                 <span>نوشي</span> .. كل شيء لذيذ 🤎
             </div>
         </div>
@@ -773,22 +779,19 @@ function buildPosterHTML() {
 function updatePosterPreview() {
     const container = document.getElementById('posterContainer');
     if (!container) return;
-    const html = buildPosterHTML();
+    const html = buildSquarePosterHTML();
     container.innerHTML = html;
 }
 
-// ========== توليد الصورة بدقة عالية مع الحفاظ على نسبة 9:16 ==========
-async function generateImage() {
+// ========== حفظ الصورة المربعة بدقة عالية ==========
+async function generateSquareImage() {
     if (selectedProducts.length !== 5) {
-        showError('يجب اختيار 5 منتجات بالضبط لإنشاء الصورة');
+        showError('يجب اختيار 5 منتجات بالضبط لإنشاء الصورة المربعة');
         return;
     }
     
-    // تحديث المعاينة للتأكد من أحدث البيانات
     updatePosterPreview();
-    
-    // انتظار تحميل الصور
-    await new Promise(resolve => setTimeout(resolve, 400));
+    await new Promise(resolve => setTimeout(resolve, 250));
     
     const posterElement = document.getElementById('posterToCapture');
     if (!posterElement) {
@@ -796,7 +799,7 @@ async function generateImage() {
         return;
     }
     
-    // معالجة جميع الصور للتأكد من تحميلها
+    // انتظار تحميل جميع الصور
     const images = posterElement.querySelectorAll('img');
     await Promise.all(
         [...images].map(img => {
@@ -806,18 +809,15 @@ async function generateImage() {
                 } else {
                     img.onload = () => resolve();
                     img.onerror = () => resolve();
-                    if (img.src && img.src !== 'placeholder.png') {
-                        // إعادة تعيين في بعض الحالات
-                    }
                 }
             });
         })
     );
     
     try {
-        // التقاط العنصر بدقة عالية ونسبة ثابتة
+        // إزالة أي تأثيرات هامشية غير مرغوب فيها بالتقاط العنصر بدقة
         const canvas = await html2canvas(posterElement, {
-            scale: 3.2,          // دقة عالية جداً مناسبة للطباعة والهواتف
+            scale: 3.5,
             backgroundColor: '#ffffff',
             useCORS: true,
             logging: false,
@@ -826,12 +826,10 @@ async function generateImage() {
             windowHeight: posterElement.scrollHeight
         });
         
-        // حفظ كصورة PNG
         canvas.toBlob(async (blob) => {
-            const fileName = `Noshi_TopProducts_${selectedProducts[0]?.name || 'poster'}_${Date.now()}.png`;
+            const fileName = `Noshi_Square_${selectedProducts[0]?.name || 'poster'}_${Date.now()}.png`;
             const file = new File([blob], fileName, { type: 'image/png' });
             
-            // محاولة المشاركة إذا كانت المدعومة، وإلا تحميل مباشر
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     title: 'أفضل المنتجات - نوشي',
@@ -845,13 +843,13 @@ async function generateImage() {
                 link.download = fileName;
                 link.click();
                 URL.revokeObjectURL(link.href);
-                showToast('✅ تم حفظ الصورة (9:16)');
+                showToast('✅ تم حفظ الصورة المربعة');
             }
         }, 'image/png', 0.98);
         
     } catch (err) {
         console.error(err);
-        showError('فشل إنشاء الصورة، حاول مجدداً');
+        showError('فشل إنشاء الصورة، حاول مرة أخرى');
     }
 }
 
@@ -864,7 +862,7 @@ function clearAll() {
     showToast('🗑️ تم مسح جميع المنتجات');
 }
 
-// ========== أدوات مساعدة ==========
+// ========== دوال مساعدة ==========
 function showError(msg) {
     const errorEl = document.getElementById('errorMsg');
     errorEl.textContent = `⚠️ ${msg}`;
@@ -884,12 +882,12 @@ function showToast(msg) {
     setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// ========== الأحداث والتهيئة ==========
-document.getElementById('generateBtn').addEventListener('click', generateImage);
+// ========== مستمعات الأحداث ==========
+document.getElementById('generateBtn').addEventListener('click', generateSquareImage);
 document.getElementById('clearCartBtn').addEventListener('click', clearAll);
 document.getElementById('monthSelect').addEventListener('change', () => updatePosterPreview());
 
-// تهيئة أولية
+// ========== التهيئة ==========
 renderAvailableProducts();
 renderSelectedProducts();
 updatePosterPreview();
