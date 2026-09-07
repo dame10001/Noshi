@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>تسجيل الدخول - نوشي</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;background:#fff7ef;color:#5d4037;font-family:Tahoma,Arial,sans-serif}.card{width:min(92vw,390px);background:#fff;border-radius:24px;padding:28px;box-shadow:0 16px 45px #6d4c4120;text-align:center}.logo{width:110px;height:110px;object-fit:contain}h1{font-size:22px;margin:8px 0 22px}input{width:100%;padding:14px;margin:7px 0;border:1.5px solid #dfc7b7;border-radius:14px;font-size:16px;outline:none}input:focus{border-color:#a47148}button{width:100%;padding:14px;margin-top:12px;border:0;border-radius:14px;background:#8d6e63;color:#fff;font-size:16px;font-weight:700;cursor:pointer}button:disabled{opacity:.6}#error{min-height:22px;color:#b3261e;font-size:14px;margin-top:10px}
+</style>
+</head>
+<body>
+<main class="card">
+<img class="logo" src="Noshi.png" alt="Noshi">
+<h1>نظام نوشي الداخلي</h1>
+<form id="loginForm">
+<input id="username" autocomplete="username" placeholder="اسم المستخدم" required>
+<input id="password" type="password" autocomplete="current-password" placeholder="كلمة المرور" required>
+<button id="submitBtn" type="submit">تسجيل الدخول</button>
+<div id="error"></div>
+</form>
+</main>
+<script src="config.js"></script>
+<script>
+const base=String(window.NOSHI_CONFIG?.INTERNAL_API_BASE||"").replace(/\/$/,"");
+loginForm.addEventListener("submit",async e=>{
+  e.preventDefault(); error.textContent=""; submitBtn.disabled=true;
+  try{
+    const r=await fetch(base+"/api/auth/login",{method:"POST",credentials:"include",headers:{"content-type":"application/json"},body:JSON.stringify({username:username.value,password:password.value})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok){
+      if(d.error==="too_many_attempts") throw new Error("محاولات كثيرة. حاول لاحقًا.");
+      throw new Error("اسم المستخدم أو كلمة المرور غير صحيحة");
+    }
+    location.replace("index.html");
+  }catch(err){error.textContent=err.message}finally{submitBtn.disabled=false}
+});
+</script>
+</body></html>
