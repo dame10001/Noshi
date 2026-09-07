@@ -2450,60 +2450,36 @@ function showReceiptBlobPreview(blob) {
 }
 
 document.getElementById('shareBtn').addEventListener('click', function() {
-  if (!window.NoshiInvoice) {
-    NoshiUI.alert('تعذر تحميل الفاتورة.', { title: 'مشاركة الفاتورة' });
-    return;
-  }
+  fillReceipt();
 
-  const financials = calculateCartFinancials();
-  const invoiceData = {
-    date: new Date().toISOString().split("T")[0],
-    items: cart,
-    generalDiscount: Number(document.getElementById("discountInput")?.value || 0),
-    totalBefore: financials.before / 100,
-    totalAfter: financials.final / 100
-  };
+  const receipt = document.getElementById('receipt');
+  receipt.style.display = 'block';
 
-  // نفتح نفس فاتورة invoice.js المستخدمة في الطلبات والمناديب.
-  // ثم نصوّر عنصر .receipt الحي نفسه، وليس #receipt القديم.
-  const liveInvoice = NoshiInvoice.open(invoiceData);
+  // صورة المشاركة من صفحة المنتجات فقط:
+  // تغيير درجة لون خط الشطب بدون أي تعديل على المقاسات أو التخطيط.
+  const productStrikeLine = receipt.querySelector('.invoice-old-total [aria-hidden="true"]');
+  if (productStrikeLine) productStrikeLine.style.background = '#ef9a9a';
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const receipt = liveInvoice && liveInvoice.receipt;
-      if (!receipt) {
-        NoshiInvoice.close();
-        NoshiUI.alert('تعذر تجهيز الفاتورة للمشاركة.', { title: 'مشاركة الفاتورة' });
+  html2canvas(receipt, {
+    scale: 2,
+    logging: false,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: null
+  }).then(canvas => {
+    receipt.style.display = 'none';
+    canvas.toBlob(blob => {
+      if (!blob) {
+        NoshiUI.alert('تعذر إنشاء صورة الفاتورة.', { title: 'مشاركة الفاتورة' });
         return;
       }
-
-      // في صورة المشاركة من صفحة المنتجات فقط:
-      // نخلي خط الشطب أفتح قليلًا بدون تغيير الفاتورة في الطلبات أو المناديب.
-      receipt.querySelectorAll('.invoice-old-total [aria-hidden="true"]').forEach(line => {
-        line.style.background = '#ef9a9a';
-      });
-
-      html2canvas(receipt, {
-        scale: 2,
-        logging: false,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff'
-      }).then(canvas => {
-        NoshiInvoice.close();
-        canvas.toBlob(blob => {
-          if (!blob) {
-            NoshiUI.alert('تعذر إنشاء صورة الفاتورة.', { title: 'مشاركة الفاتورة' });
-            return;
-          }
-          showReceiptBlobPreview(blob);
-        }, 'image/png');
-      }).catch(error => {
-        console.error('Error generating receipt image:', error);
-        NoshiInvoice.close();
-        NoshiUI.alert('حدث خطأ أثناء إنشاء صورة الفاتورة.', { title: 'مشاركة الفاتورة' });
-      });
-    });
+      // نعرض الـ Blob داخل نفس الصفحة، بدون window.open وبدون تنزيل.
+      showReceiptBlobPreview(blob);
+    }, 'image/png');
+  }).catch(error => {
+    console.error('Error generating receipt image:', error);
+    receipt.style.display = 'none';
+    NoshiUI.alert('حدث خطأ أثناء إنشاء صورة الفاتورة.', { title: 'مشاركة الفاتورة' });
   });
 });
 /* تحويل الأرقام العربية إلى إنجليزية (لجميع الحقول الرقمية) */
