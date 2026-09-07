@@ -111,7 +111,7 @@
         ${hasDiscount ? `
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px;align-items:center;">
             <span>❌ الإجمالي السابق:</span>
-            <span style="color:#c0392b;font-weight:700;text-decoration:line-through;">${money(totals.before)} ر.س</span>
+            <span class="old-total">${money(totals.before)} ر.س</span>
           </div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px;align-items:center;color:#27ae60;">
             <span>الخصم:</span><span>${money(totals.discount)} ر.س</span>
@@ -148,6 +148,8 @@
     .edit{appearance:none;border:0;width:100%;min-height:48px;border-radius:13px;background:#2980b9;color:#fff;font:800 15px -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
     .delivery{background:#fff;border:1px solid #eadfd6;border-radius:13px;padding:12px 10px;text-align:center;color:#2c3e50;font-size:14px;font-weight:800;line-height:1.7;box-shadow:0 2px 8px rgba(0,0,0,.05)}
     .delivery .label{display:block;color:#d35400;font-size:13px;margin-bottom:2px}
+    .old-total{display:inline-block;position:relative;color:#c0392b;font-weight:700;text-decoration:none;line-height:1.35;padding:0 1px}
+    .old-total::after{content:"";position:absolute;left:0;right:0;top:53%;height:2px;background:#c0392b;border-radius:2px;transform:translateY(-50%);pointer-events:none}
     @media(max-width:520px){.overlay{align-items:flex-end;padding:0}.shell{width:100%;max-width:none;max-height:94dvh;border-radius:22px 22px 0 0;padding:10px 10px max(14px,env(safe-area-inset-bottom))}.receipt{max-width:300px}.topbar{padding-top:2px}}
   `;
 
